@@ -4,8 +4,6 @@ import connectDB from "./config/db.js";
 
 // Load environment variables
 dotenv.config();
-console.log(process.env.MONGODB_URI);
-console.log(process.env.PORT);
 // Connect to MongoDB
 await connectDB();
 

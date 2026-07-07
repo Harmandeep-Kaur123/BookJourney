@@ -1,8 +1,16 @@
-POST http://localhost:5000/api/auth/register
-Content-Type: application/json
+//POST http://localhost:5000/api/auth/register
 
-{
-    "name": "Harmandeep Kaur",
-    "email": "harman123@gmail.com",
-    "password": "123456"
-}
+# POST http://localhost:5000/api/auth/login
+# Content-Type: application/json
+# {
+#     //"name": "Harman Kaur",
+#     "email": "harman1234@gmail.com",
+#     "password": "1234@567"
+# }
+
+
+GET http://localhost:5000/api/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzQwMTc0MywiZXhwIjoxNzg0MDA2NTQzfQ.mIc5E1usd0r63Zq-VhqCuRBwHyh2TvuHNOzj3-zJTSo
+
+

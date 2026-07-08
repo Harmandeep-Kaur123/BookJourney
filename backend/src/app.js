@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
+
 import authRoutes from "./routes/auth.route.js";
+import bookRoutes from "./routes/book.routes.js";
+
 import errorHandler from "./middlewares/error.middleware.js";
 
 const app = express();
@@ -20,7 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 ROUTES
 */
 
-
 // Health Check Route
 // app.get("/", (req, res) => {
 //     res.status(200).json({
@@ -30,6 +32,7 @@ ROUTES
 // });
 //register route
 app.use("/api/auth", authRoutes);
+app.use("/api/books", bookRoutes);
 
 //Error Handler -- middleware runs in order written
 app.use(errorHandler);

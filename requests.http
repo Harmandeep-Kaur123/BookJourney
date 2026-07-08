@@ -9,7 +9,8 @@
 # }
 
 
-GET http://localhost:5000/api/auth/me
+//GET http://localhost:5000/api/auth/me
+GET http://localhost:5000/api/books/search?q=atomic habits
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzQwMTc0MywiZXhwIjoxNzg0MDA2NTQzfQ.mIc5E1usd0r63Zq-VhqCuRBwHyh2TvuHNOzj3-zJTSo
 

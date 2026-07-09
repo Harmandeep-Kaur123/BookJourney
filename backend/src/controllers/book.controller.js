@@ -1,5 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { searchBooks } from "../services/book.service.js";
+import { searchBooks, addBookToLibrary } from "../services/book.service.js";
 
 export const searchBooksController = asyncHandler(async (req, res) => {
 
@@ -14,4 +14,19 @@ export const searchBooksController = asyncHandler(async (req, res) => {
         success: true,
         data: books,
     });
+});
+
+export const addBookToLibraryController = asyncHandler(async (req, res) => {
+    console.log(req.body);
+    const { googleBookId } = req.body;
+    const userBook = await addBookToLibrary(
+        googleBookId,
+        req.user.id
+    );
+    res.status(201).json({
+        success: true,
+        message: "Book added to library successfully",
+        data: userBook,
+    });
+
 });

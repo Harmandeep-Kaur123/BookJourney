@@ -10,7 +10,7 @@ export const registerUser = async (userData) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });  //mongodb
     if (existingUser) {
-        throw new Error("User already exists");
+        throw new Error("User already exists"); 
     }
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);

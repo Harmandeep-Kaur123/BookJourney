@@ -18,7 +18,7 @@ const validate = (req, res, next) => {
 export default validate;
 
 
-//ALL THIS INFO WILL NOT BE NEEDED FOR UI - field and msg
+//ALL THIS INFO WILL NOT BE NEEDED FOR UI - field and msg only
 // {
 //   "success": false,
 //   "errors": [

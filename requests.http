@@ -2,6 +2,7 @@
 
 # POST http://localhost:5000/api/auth/login
 # Content-Type: application/json
+
 # {
 #     //"name": "Harman Kaur",
 #     "email": "harman1234@gmail.com",
@@ -10,8 +11,25 @@
 
 
 //GET http://localhost:5000/api/auth/me
-GET http://localhost:5000/api/books/search?q=atomic habits
+# GET http://localhost:5000/api/books/search?q=the alchemist
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
+
+# # POST http://localhost:5000/api/books
+# # Content-Type: application/json
+# # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
+
+# # {
+# #     "googleBookId": "x8xtwgEACAAJ"
+# # }
+
+# GET http://localhost:5000/api/books/library
+PATCH http://localhost:5000/api/books/library/6a5079b1c2c29a775d6570bf
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzQwMTc0MywiZXhwIjoxNzg0MDA2NTQzfQ.mIc5E1usd0r63Zq-VhqCuRBwHyh2TvuHNOzj3-zJTSo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
 
-
+{
+    "status": "Completed",
+    "currentPage": 120,
+    "rating": 4
+}

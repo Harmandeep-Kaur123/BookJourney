@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { BOOK_STATUS } from "../constants/bookStatus.js";
 
 const userBookSchema = new mongoose.Schema(
     {
@@ -16,8 +17,8 @@ const userBookSchema = new mongoose.Schema(
 
         status: {
             type: String,
-            enum: ["Want to Read", "Reading", "Completed"],  //enum: restricted choices
-            default: "Want to Read",
+            enum: Object.values(BOOK_STATUS), //enum: restricted choices
+            default: BOOK_STATUS.WANT_TO_READ
         },
 
         currentPage: {
@@ -30,14 +31,20 @@ const userBookSchema = new mongoose.Schema(
             type: Number,
             min: 1,
             max: 5,
+            default: null,
         },
 
         startedOn: {
             type: Date,
+            default: null,
         },
-
+        lastReadOn: {
+            type: Date,
+            default: null,
+        },
         completedOn: {
             type: Date,
+            default: null,
         },
     },
     {

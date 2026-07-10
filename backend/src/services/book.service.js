@@ -5,6 +5,8 @@ import AppError from "../utils/appError.js";
 import Book from "../models/Book.js";
 import UserBook from "../models/UserBook.js";
 
+import { BOOK_STATUS } from "../constants/bookStatus.js";
+
 export const searchBooks = async (query) => {
     try {
         const response = await axios.get(
@@ -58,7 +60,16 @@ export const addBookToLibrary = async (googleBookId, userId) => {
     let book = await Book.findOne({ googleBookId });
      if (!book) {
         const googleBook = await getBookByGoogleId(googleBookId);  //get book details from external API
-        book = await Book.create(googleBook);       // create in db
+        //book = await Book.create(googleBook);       // create in db
+        try {
+            book = await Book.create(googleBook);
+        } catch (error) {
+            if (error.code === 11000) {
+                book = await Book.findOne({ googleBookId });
+            } else {
+                throw error;
+            }
+        }
     }
     // Check if this user already has the book
     const existingUserBook = await UserBook.findOne({
@@ -75,4 +86,76 @@ export const addBookToLibrary = async (googleBookId, userId) => {
         book: book._id,
     });
     return await userBook.populate("book");
+};
+
+export const getUserLibrary = async (userId, status) => {
+    const filter = {
+        user: userId,
+    };
+
+    if (status) {
+        if (!Object.values(BOOK_STATUS).includes(status)) {
+            throw new AppError("Invalid book status", 400);
+        }
+
+        filter.status = status;
+        // filter.status = status;
+    }
+
+    return await UserBook.find(filter)
+        .populate(
+            "book",
+            "title authors coverImage pageCount"
+        )
+        .sort({ createdAt: -1 });
+
+};
+
+export const updateUserBook = async (userBookId, userId, updates) => {
+
+    const userBook = await UserBook.findOne({  //user update their own books.
+        _id: userBookId,
+        user: userId,
+    }).populate("book");
+
+    if (!userBook) {
+        throw new AppError("Book not found in your library", 404);
+    }
+
+    const { status, currentPage, rating } = updates;
+
+    // Update Progress
+    if (currentPage !== undefined) {
+        if (currentPage < 0) {
+            throw new AppError("Current page cannot be negative",400);
+        }
+
+        if (currentPage > userBook.book.pageCount) {
+            throw new AppError("Current page cannot exceed total pages",400 );
+        }
+        userBook.currentPage = currentPage;
+        userBook.lastReadOn = new Date();
+    }
+
+    // Update Rating
+    if (rating !== undefined) {
+        userBook.rating = rating;
+    }
+
+    // Update Status
+    if (status) {
+        userBook.status = status;
+        if (status === BOOK_STATUS.READING &&!userBook.startedOn) {
+            userBook.startedOn = new Date();
+        }
+        if (status === BOOK_STATUS.COMPLETED) {
+            userBook.completedOn = new Date();
+            userBook.currentPage = userBook.book.pageCount;
+        }
+    }
+    await userBook.save();
+    return await userBook.populate(
+        "book",
+        "title authors coverImage pageCount"
+    );
 };

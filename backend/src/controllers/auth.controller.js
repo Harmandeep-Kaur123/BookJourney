@@ -1,11 +1,11 @@
 import { registerUser, loginUser } from "../services/auth.service.js";
 import asyncHandler from "../utils/asyncHandler.js";
-
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 export const register = asyncHandler(async (req, res) => {
 
     const user = await registerUser(req.body);
-    res.status(201).json({  //no failure
+    res.status(HTTP_STATUS.CREATED).json({  //no failure
         success: true,
         data: user
     });
@@ -14,7 +14,7 @@ export const register = asyncHandler(async (req, res) => {
 
 export const login = asyncHandler(async (req, res) => {
     const result = await loginUser(req.body);
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
         success: true,
         message: "Login successful",
         data: result
@@ -23,7 +23,7 @@ export const login = asyncHandler(async (req, res) => {
 });
 
 export const getCurrentUser = asyncHandler(async (req, res) => {
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
         success: true,
         data: req.user,  //from auth middleware
     });

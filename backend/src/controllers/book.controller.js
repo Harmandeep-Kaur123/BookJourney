@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { searchBooks, addBookToLibrary, updateUserBook } from "../services/book.service.js";
 import { getUserLibrary } from "../services/book.service.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 export const searchBooksController = asyncHandler(async (req, res) => {
 
@@ -11,7 +12,7 @@ export const searchBooksController = asyncHandler(async (req, res) => {
     
     const { q } = req.query;
     const books = await searchBooks(q);
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
         success: true,
         data: books,
     });
@@ -23,7 +24,7 @@ export const addBookToLibraryController = asyncHandler(async (req, res) => {
         googleBookId,
         req.user.id
     );
-    res.status(201).json({
+    res.status(HTTP_STATUS.CREATED).json({
         success: true,
         message: "Book added to library successfully",
         data: userBook,
@@ -38,7 +39,7 @@ export const getUserLibraryController = asyncHandler(async (req, res) => {
         status
     );
 
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
         success: true,
         data: books,
     });
@@ -52,7 +53,7 @@ export const updateUserBookController = asyncHandler(async (req, res) => {
         req.body
     );
 
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
         success: true,
         message: "Book updated successfully",
         data: updatedBook,

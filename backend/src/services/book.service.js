@@ -6,6 +6,7 @@ import Book from "../models/Book.js";
 import UserBook from "../models/UserBook.js";
 
 import { BOOK_STATUS } from "../constants/bookStatus.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 export const searchBooks = async (query) => {
     try {
@@ -29,9 +30,8 @@ export const searchBooks = async (query) => {
         //     publishedDate: book.volumeInfo.publishedDate || "",
         // }));
     } catch (error) {
-        console.log("Status:", error.response?.status);
-        console.log("Data:", error.response?.data);
-        throw error;
+        console.error(error.response?.data || error.message);
+        throw new AppError("Failed to search books",HTTP_STATUS.BAD_GATEWAY);
     }
 };
 
@@ -49,9 +49,9 @@ export const getBookByGoogleId = async (googleBookId) => {
     return mapGoogleBook(response.data);
     } catch (error) {
         if (error.response?.status === 404) {
-            throw new AppError("Book not found", 404);
+            throw new AppError("Book not found", HTTP_STATUS.NOT_FOUND);
         }
-        throw new AppError("Failed to fetch book from Google Books",502);
+        throw new AppError("Failed to fetch book from Google Books",HTTP_STATUS.BAD_GATEWAY);
     }
 };
 
@@ -78,7 +78,7 @@ export const addBookToLibrary = async (googleBookId, userId) => {
     });
 
     if (existingUserBook) {
-        throw new AppError("Book already exists in your library",409);
+        throw new AppError("Book already exists in your library",HTTP_STATUS.CONFLICT);
     }
 
     const userBook = await UserBook.create({
@@ -95,7 +95,7 @@ export const getUserLibrary = async (userId, status) => {
 
     if (status) {
         if (!Object.values(BOOK_STATUS).includes(status)) {
-            throw new AppError("Invalid book status", 400);
+            throw new AppError("Invalid book status", HTTP_STATUS.BAD_REQUEST);
         }
 
         filter.status = status;
@@ -119,7 +119,7 @@ export const updateUserBook = async (userBookId, userId, updates) => {
     }).populate("book");
 
     if (!userBook) {
-        throw new AppError("Book not found in your library", 404);
+        throw new AppError("Book not found in your library",HTTP_STATUS.NOT_FOUND);
     }
 
     const { status, currentPage, rating } = updates;
@@ -127,11 +127,11 @@ export const updateUserBook = async (userBookId, userId, updates) => {
     // Update Progress
     if (currentPage !== undefined) {
         if (currentPage < 0) {
-            throw new AppError("Current page cannot be negative",400);
+            throw new AppError("Current page cannot be negative",HTTP_STATUS.BAD_REQUEST);
         }
 
         if (currentPage > userBook.book.pageCount) {
-            throw new AppError("Current page cannot exceed total pages",400 );
+            throw new AppError("Current page cannot exceed total pages",HTTP_STATUS.BAD_REQUEST );
         }
         userBook.currentPage = currentPage;
         userBook.lastReadOn = new Date();
@@ -144,11 +144,15 @@ export const updateUserBook = async (userBookId, userId, updates) => {
 
     // Update Status
     if (status) {
+        if (!Object.values(BOOK_STATUS).includes(status)) {
+            throw new AppError("Invalid book status",HTTP_STATUS.BAD_REQUEST);
+        }
+
         userBook.status = status;
-        if (status === BOOK_STATUS.READING &&!userBook.startedOn) {
+        if (status === BOOK_STATUS.READING && !userBook.startedOn) {
             userBook.startedOn = new Date();
         }
-        if (status === BOOK_STATUS.COMPLETED) {
+        if (status === BOOK_STATUS.COMPLETED) { // && !userBook.completedOn
             userBook.completedOn = new Date();
             userBook.currentPage = userBook.book.pageCount;
         }

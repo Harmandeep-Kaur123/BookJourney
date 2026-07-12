@@ -1,4 +1,5 @@
 import { validationResult } from "express-validator";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 const validate = (req, res, next) => {
     const errors = validationResult(req);
@@ -7,7 +8,7 @@ const validate = (req, res, next) => {
             field: error.path,
             message: error.msg
         }));
-        return res.status(400).json({
+        return res.status(HTTP_STATUS.BAD_REQUEST).json({
             success: false,
             errors: formattedErrors
         });

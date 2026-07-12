@@ -1,5 +1,7 @@
+import { HTTP_STATUS } from "../constants/httpStatus.js";
+
 const errorHandler = (err, req, res, next) => {
-    const statusCode = err.statusCode || 500;
+    const statusCode = err.statusCode || HTTP_STATUS.INTERNAL_SERVER_ERROR;
 
     if (process.env.NODE_ENV !== "production") {
         console.error(err);

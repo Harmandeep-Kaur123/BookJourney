@@ -2,6 +2,8 @@ import bcrypt from "bcrypt";  //Hash password
 import User from "../models/User.js";  //  user
 import jwt from "jsonwebtoken";
 import generateToken from "../utils/generateToken.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
+import AppError from "../utils/appError.js";
 
 /* Register user */
 export const registerUser = async (userData) => {
@@ -10,7 +12,7 @@ export const registerUser = async (userData) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });  //mongodb
     if (existingUser) {
-        throw new Error("User already exists"); 
+        throw new AppError("User already exists",HTTP_STATUS.CONFLICT);
     }
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +46,7 @@ export const loginUser = async (userData) => {
     );
 
     if (!isPasswordMatched) {
-        throw new Error("Invalid email or password");
+        throw new AppError("Invalid email or password",HTTP_STATUS.UNAUTHORIZED);
     }
 
     // Generate JWT

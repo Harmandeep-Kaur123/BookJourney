@@ -13,7 +13,11 @@ const noteSchema = new mongoose.Schema(
             ref: "Book",
             required: true,
         },
-
+        type: {
+            type: String,
+            enum: ["note", "quote"],
+            default: "note",
+        },
         title: {
             type: String,
             trim: true,

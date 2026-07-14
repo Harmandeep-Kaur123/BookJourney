@@ -7,6 +7,11 @@ export const createNoteValidation = [
         .notEmpty()
         .withMessage("User Book ID is required"),
 
+    body("type")
+        .optional()
+        .isIn(["note", "quote"])
+        .withMessage("Invalid note type"),
+
     body("title")
         .optional()
         .trim()

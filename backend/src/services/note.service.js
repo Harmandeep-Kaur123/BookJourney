@@ -33,6 +33,7 @@ export const createNote = async (userId, noteData) => {
         user: userId,
         book: userBook.book._id,
         title,
+        type,
         content,
         page,
         chapter,

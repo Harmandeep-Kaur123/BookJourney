@@ -4,6 +4,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.route.js";
 import bookRoutes from "./routes/book.routes.js";
 import noteRoutes from "./routes/note.routes.js";
+import dashboardRoutes from "./routes/dashboard.route.js"
 
 import errorHandler from "./middlewares/error.middleware.js";
 
@@ -35,6 +36,7 @@ ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/api/dashboard",dashboardRoutes);
 
 //Error Handler -- middleware runs in order written
 app.use(errorHandler);

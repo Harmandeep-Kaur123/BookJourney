@@ -24,12 +24,26 @@
 # }
 
 # GET http://localhost:5000/api/books/library
-PATCH http://localhost:5000/api/books/library/6a5079b1c2c29a775d6570bf
+# # PATCH http://localhost:5000/api/books/library/6a5079b1c2c29a775d6570bf
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
+
+# {
+#     "status": "Completed",
+#     "currentPage": 120,
+#     "rating": 5
+# }
+
+# POST  http://localhost:5000/api/notes
+GET http://localhost:5000/api/notes?bookId = 6a5079b1c2c29a775d6570be
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
 
-{
-    "status": "Completed",
-    "currentPage": 120,
-    "rating": 5
-}
+# {
+#   "userBookId": "6a5079b1c2c29a775d6570bf",
+#   "title": "Personal Legend",
+#   "content": "When you want something, all the universe conspires in helping you to achieve it.",
+#   "page": 24,
+#   "chapter": "The Crystal Merchant",
+#   "tags": ["personal-legend", "dreams", "destiny", "motivation"]
+# }

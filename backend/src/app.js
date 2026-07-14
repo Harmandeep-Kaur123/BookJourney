@@ -13,8 +13,13 @@ const app = express();
     Middleware
 */
 // Allow requests from frontend
-app.use(cors());
-
+//app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    //credentials: true,
+  })
+);
 // Parse incoming JSON requests
 app.use(express.json());
 

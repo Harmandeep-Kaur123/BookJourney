@@ -25,6 +25,7 @@ export const login = asyncHandler(async (req, res) => {
 export const getCurrentUser = asyncHandler(async (req, res) => {
     res.status(HTTP_STATUS.OK).json({
         success: true,
+        message: "User fetched successfully",
         data: req.user,  //from auth middleware
     });
 });

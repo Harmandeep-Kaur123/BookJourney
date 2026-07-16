@@ -1,33 +1,42 @@
 import { ROUTES } from "../../constants/routes.js"
+import { NavLink } from "react-router-dom";
 
-const navigation = [
-    {
-        label: "Dashboard",
-        path: ROUTES.DASHBOARD,
-    },
-    {
-        label: "My Library",
-        path: ROUTES.LIBRARY,
-    },
-    {
-        label: "Search Books",
-        path: ROUTES.SEARCH,
-    },
-    {
-        label: "Notes",
-        path: ROUTES.NOTES,
-    },
-    {
-        label: "Profile",
-        path: ROUTES.PROFILE,
-    },
-];
+import { navigation } from "../../constants/navigation";
 
 function Sidebar() {
     return (
-        <aside className="w-64 border-r bg-white p-6">
-            Sidebar
-        </aside>
+    <aside className="flex h-full w-64 flex-col border-r bg-white">
+       
+        <nav className="flex-1 space-y-2 p-4">
+            {navigation.map((item) => {
+    const Icon = item.icon;
+
+    return (
+        <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.path === ROUTES.DASHBOARD}
+            className={({ isActive }) =>
+                `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive
+                        ? "bg-amber-100 text-amber-700"
+                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                }`
+            }
+        >
+            <Icon size={20} />
+            <span>{item.label}</span>
+        </NavLink>
+        );
+        })}
+        </nav>
+
+        <div className="border-t p-4">
+            <p className="text-xs text-gray-400">
+                BookJourney v1.0
+            </p>
+        </div>
+    </aside>
     );
 }
 

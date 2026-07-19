@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/layout/Navbar";
 import Sidebar from "../components/layout/Sidebar";
 
-function DashboardLayout() {
+function AppLayout() {
     return (
         <div className="min-h-screen bg-gray-50">
             <Navbar />
@@ -17,4 +17,4 @@ function DashboardLayout() {
     );
 }
 
-export default DashboardLayout;
+export default AppLayout;

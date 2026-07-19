@@ -1,34 +1,19 @@
+import PageContainer from "../../components/layout/PageContainer";
+import PageHeader from "../../components/layout/PageHeader";
+
 function Dashboard() {
     return (
-        <>
-        <h2 className="text-2xl font-semibold">
-            Dashboard
-        </h2>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br><br></br><br></br><br></br><br></br>
-        <br></br><br></br><br></br><br></br><br></br>
-        <br></br><br></br><br></br><br></br><br></br>
-        <br></br><br></br><br></br><br></br><br></br>
-        <br></br><br></br><br></br><br></br><br></br>
-        <h2 className="text-2xl font-semibold">
-            Dashboard
-        </h2>
-        </>
+        <PageContainer>
+            <PageHeader
+                title="Dashboard"
+                description="Track your reading progress and insights."
+            />
+
+            <div className="rounded-xl border bg-white p-8">
+                Dashboard content goes here.
+            </div>
+        </PageContainer>
     );
 }
 
 export default Dashboard;
-
-// function Dashboard() {
-//     return <h1>Dashboard Page</h1>;
-// }
-
-// export default Dashboard;

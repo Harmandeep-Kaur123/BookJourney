@@ -1,26 +1,32 @@
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "../layouts/AppLayout.jsx";
+
 import Dashboard from "../pages/dashboard/Dashboard";
 import Login from "../pages/auth/Login.jsx";
 import Register from "../pages/auth/Register.jsx";
-import { ROUTES } from "../constants/routes.js";
 import NotFound from "../pages/NotFound";
+
+import { ROUTES } from "../constants/routes.js";
+
 import ProtectedRoute from "./ProtectedRoute.jsx";
+import PublicRoute from "./PublicRoute.jsx";
 
 function AppRoutes() {
     return (
         <Routes>
             
             {/* Public Routes */}
-            <Route
-                path={ROUTES.LOGIN}
-                element={<Login />}
-            />
+            <Route element={<PublicRoute />}>
+                <Route
+                    path={ROUTES.LOGIN}
+                    element={<Login />}
+                />
 
-            <Route
-                path={ROUTES.REGISTER}
-                element={<Register />}
-            />
+                <Route
+                    path={ROUTES.REGISTER}
+                    element={<Register />}
+                />
+            </Route>
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>

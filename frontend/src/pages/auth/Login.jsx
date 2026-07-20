@@ -12,6 +12,7 @@ import { ROUTES } from "../../constants/routes";
 import { useAuth } from "../../context/AuthContext";
 
 import { validation } from "../../utils/validation";
+import { getErrorMessage } from "../../utils/getErrorMessage";
 
 function Login() {
     const navigate = useNavigate();
@@ -39,8 +40,7 @@ function Login() {
             });
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Login failed"
+                getErrorMessage(error)
             );
         } finally {
             setIsSubmitting(false);

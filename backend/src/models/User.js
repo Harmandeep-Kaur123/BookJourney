@@ -24,6 +24,12 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default: ""
+    },
+
+    readingGoal: {
+        type: Number,
+        default: 12,
+        min: 0,
     }
   },
   {

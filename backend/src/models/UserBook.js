@@ -46,10 +46,10 @@ const userBookSchema = new mongoose.Schema(
             type: Date,
             default: null,
         },
-        readingGoal: {
-            type: Number,
-            default: 12
-        },
+        // readingGoal: {
+        //     type: Number,
+        //     default: 12
+        // },
     },
     {
         timestamps: true,

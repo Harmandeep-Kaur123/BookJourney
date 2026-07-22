@@ -93,18 +93,6 @@ function Dashboard() {
             </div>
         </PageContainer>
     );
-    // return (
-    //     <PageContainer>
-    //         <DashboardHeader name={dashboardData.user.name} />
-    //         <StatsGrid stats={dashboardData.stats}/>
-    //         <ReadingGoalCard goal={dashboardData.goal} />
-    //         <ContinueReading books={dashboardData.continueReading} />
-    //         <div className="mt-8 grid gap-8 lg:grid-cols-2">
-    //             <FavoriteGenres genres={dashboardData.genres}/>
-    //             <RecentNotes notes={dashboardData.notes}/>
-    //         </div>
-    //     </PageContainer>
-    // );
 }
 
 export default Dashboard;

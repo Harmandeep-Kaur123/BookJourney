@@ -17,10 +17,27 @@ const bookService = {
         return response.data;
     },
 
+    async getLibrary() {
+        const response = await apiClient.get(
+            "/books/library"
+        );
+
+        return response.data;
+    },
+
     async addToLibrary(googleBookId) {
         const response = await apiClient.post("/books", {
             googleBookId,
         });
+
+        return response.data;
+    },
+
+    async updateLibraryBook(userBookId, data) {
+        const response = await apiClient.patch(
+            `/books/library/${userBookId}`,
+            data
+        );
 
         return response.data;
     },

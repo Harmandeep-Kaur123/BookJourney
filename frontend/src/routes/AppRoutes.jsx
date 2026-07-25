@@ -6,6 +6,7 @@ import Login from "../pages/auth/Login.jsx";
 import Register from "../pages/auth/Register.jsx";
 import NotFound from "../pages/NotFound";
 import Search from "../pages/Search.jsx";
+import Library from "../pages/Library.jsx";
 import { ROUTES } from "../constants/routes.js";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -36,10 +37,10 @@ function AppRoutes() {
                         element={<Dashboard />}
                     />
 
-                    {/* <Route
+                    <Route
                         path={ROUTES.LIBRARY}
                         element={<Library />}
-                    /> */}
+                    />
 
                     <Route
                         path={ROUTES.SEARCH}

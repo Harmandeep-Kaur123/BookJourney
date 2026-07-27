@@ -7,6 +7,7 @@ import Register from "../pages/auth/Register.jsx";
 import NotFound from "../pages/NotFound";
 import Search from "../pages/Search.jsx";
 import Library from "../pages/Library.jsx";
+import Notes from "../pages/Note.jsx";
 import { ROUTES } from "../constants/routes.js";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -47,15 +48,20 @@ function AppRoutes() {
                         element={<Search />}
                     />
 
-                    {/* <Route
+                    <Route
                         path={ROUTES.NOTES}
                         element={<Notes />}
                     />
 
                     <Route
-                        path={ROUTES.PROFILE}
+                        path={ROUTES.BOOK_NOTES}
+                        element={<Notes />}
+                    />
+
+                    {/* <Route
+                        path={ROUTES.PROsFILE}
                         element={<Profile />}
-                    /> */}
+                    />  */}
                 </Route>
             </Route>
 

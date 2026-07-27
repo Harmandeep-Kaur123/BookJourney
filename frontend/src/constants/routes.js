@@ -7,5 +7,6 @@ export const ROUTES = {
     LIBRARY: "/library",
     SEARCH: "/search",
     NOTES: "/notes",
+    BOOK_NOTES: "/notes/:userBookId",
     PROFILE: "/profile",
 };

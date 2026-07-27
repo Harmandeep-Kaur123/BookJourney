@@ -1,9 +1,13 @@
 import Card from "../common/Card";
 import Button from "../common/Button";
 
+import { ROUTES } from "../../constants/routes" 
+
 import ProgressBar from "./ProgressBar";
 import RatingStars from "./RatingStars";
 import StatusBadge from "./StatusBadge";
+
+import {useNavigate} from "react-router-dom";
 
 const PLACEHOLDER_IMAGE =
     "https://placehold.co/128x192?text=No+Cover";
@@ -13,9 +17,8 @@ function LibraryBookCard({
     onUpdate,
 }) {
     const { status, currentPage, rating } = book;
-
     const bookDetails = book.book;
-
+    const navigate = useNavigate();
     return (
         <Card className="flex gap-6">
             <img
@@ -57,11 +60,20 @@ function LibraryBookCard({
                     </div>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-6 flex gap-3">
                     <Button
+                        variant="secondary"
+                        className="w-40"
+                        onClick={() => navigate(ROUTES.BOOK_NOTES.replace(":userBookId", book._id))}
+                    >
+                        View Notes
+                    </Button>
+
+                    <Button
+                        className="w-40"
                         onClick={() => onUpdate(book)}
                     >
-                        Update Progress
+                        Update Book
                     </Button>
                 </div>
             </div>

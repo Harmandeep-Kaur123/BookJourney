@@ -11,10 +11,10 @@ function ProgressBar({
             : 0;
 
     return (
-        <div className="w-full">
+        <div className="w-full max-w-sm">
             <div className="mb-2 flex items-center justify-between text-sm text-gray-600">
                 <span>
-                     {currentPage} of {pageCount} pages
+                    {currentPage} / {pageCount} pages
                 </span>
 
                 <span>{progress}%</span>

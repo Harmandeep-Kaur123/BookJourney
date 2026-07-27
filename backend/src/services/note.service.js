@@ -8,6 +8,7 @@ export const createNote = async (userId, noteData) => {
     const {
         userBookId,
         title,
+        type,
         content,
         page,
         chapter,
@@ -31,7 +32,7 @@ export const createNote = async (userId, noteData) => {
 
     const note = await Note.create({
         user: userId,
-        book: userBook.book._id,
+        userBook: userBook._id,
         title,
         type,
         content,
@@ -40,27 +41,33 @@ export const createNote = async (userId, noteData) => {
         tags,
     });
 
-    return await note.populate(
-        "book",
-        "title authors coverImage"
-    );
+    return await note.populate({
+        path: "userBook",
+        populate: {
+            path: "book",
+            select: "title authors coverImage",
+        },
+    });
 };
 
 //GET NOTE 
-export const getUserNotes = async (userId,bookId) => {
+export const getUserNotes = async (userId,userBookId) => {
     const filter = {
         user: userId,
     };
 
-    if (bookId) {
-        filter.book = bookId;
+    if (userBookId) {
+        filter.userBook = userBookId;
     }
 
     return await Note.find(filter)
-        .populate(
-            "book",
-            "title authors coverImage"
-        )
+        .populate({
+            path: "userBook",
+            populate: {
+                path: "book",
+                select: "title authors coverImage",
+            },
+        })
         .sort({
             createdAt: -1,
         });
@@ -72,7 +79,12 @@ export const updateNote = async (noteId,userId,updates) => {
     const note = await Note.findOne({
         _id: noteId,
         user: userId,
-    }).populate("book");
+    }).populate({
+        path: "userBook",
+        populate: {
+            path: "book",
+        },
+    });
 
     if (!note) {
         throw new AppError("Note not found",HTTP_STATUS.NOT_FOUND);
@@ -86,7 +98,7 @@ export const updateNote = async (noteId,userId,updates) => {
         tags,
     } = updates;
 
-    if ( page && page > note.book.pageCount) {
+    if ( page && page > note.userBook.book.pageCount) {
         throw new AppError("Page number exceeds total pages", HTTP_STATUS.BAD_REQUEST );
     }
 
@@ -112,10 +124,13 @@ export const updateNote = async (noteId,userId,updates) => {
 
     await note.save();
 
-    return await note.populate(
-        "book",
-        "title authors coverImage"
-    );
+    return await note.populate({
+            path: "userBook",
+            populate: {
+                path: "book",
+                select: "title authors coverImage",
+            },
+        })
 };
 
 //DELETE NODE 

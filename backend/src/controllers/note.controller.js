@@ -19,7 +19,7 @@ export const getUserNotesController = asyncHandler(async (req, res) => {
 
     const notes = await getUserNotes(
         req.user.id,
-        req.query.bookId
+        req.query.userBookId
     );
 
     res.status(HTTP_STATUS.OK).json({

@@ -8,9 +8,9 @@ const noteSchema = new mongoose.Schema(
             required: true,
         },
 
-        book: {
+        userBook: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Book",
+            ref: "UserBook",
             required: true,
         },
         type: {

@@ -5,8 +5,8 @@
 
 # {
 #     //"name": "Harman Kaur",
-#     "email": "harman1234@gmail.com",
-#     "password": "1234@567"
+#     "email": "riya.dutta@gmail.com",
+#     "password": "12345678"
 # }
 
 
@@ -34,16 +34,17 @@
 #     "rating": 5
 # }
 
-# POST  http://localhost:5000/api/notes
-GET http://localhost:5000/api/notes?bookId = 6a5079b1c2c29a775d6570be
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
+//GET http://localhost:5000/api/notes?userBookId = 
 
-# {
-#   "userBookId": "6a5079b1c2c29a775d6570bf",
-#   "title": "Personal Legend",
-#   "content": "When you want something, all the universe conspires in helping you to achieve it.",
-#   "page": 24,
-#   "chapter": "The Crystal Merchant",
-#   "tags": ["personal-legend", "dreams", "destiny", "motivation"]
-# }
+POST  http://localhost:5000/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWRiZGYyOTQ3MmQyY2ZkYWQ1NjJjNSIsImlhdCI6MTc4NTEzOTIxMiwiZXhwIjoxNzg1NzQ0MDEyfQ.XmnCZeou_ZAxEJA12aMCWLFnj1q3kVuiU7tqvxXDzWE
+
+{
+  "userBookId": "6a670e99144521e5cc34eed4",
+  "title": "Personal Legend",
+  "content": "When you want something, all the universe conspires in helping you to achieve it.",
+  "page": 44,
+  "chapter": "The Merchant",
+  "tags": ["destiny", "motivation"]
+}

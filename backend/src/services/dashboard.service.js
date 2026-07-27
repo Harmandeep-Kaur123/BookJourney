@@ -131,7 +131,13 @@ const getRecentNotes = async (userId) => {
     return await Note.find({
         user: userId,
     })
-    .populate("book","title coverImage")
+    .populate({
+        path: "userBook",
+        populate: {
+            path: "book",
+            select: "title coverImage",
+        },
+    })
     .sort({ createdAt: -1,})
     .limit(5);
 };

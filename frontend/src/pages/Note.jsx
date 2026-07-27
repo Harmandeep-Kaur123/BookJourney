@@ -12,6 +12,7 @@ import EmptyNotes from "../components/notes/EmptyNote";
 import NoteModal from "../components/notes/NoteModal";
 import NotesList from "../components/notes/NotesList";
 import DeleteNoteDialog from "../components/notes/DeleteNoteDialog";
+import NoteFilters from "../components/notes/NoteFilters";
 
 import useNotes from "../hooks/useNotes";
 
@@ -22,6 +23,7 @@ function Notes() {
     const isBookNotes = Boolean(userBookId);
 
     const navigate = useNavigate();
+    const [filter, setFilter] = useState("all");
 
     const {
         notes,
@@ -39,6 +41,13 @@ function Notes() {
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] =useState(false);
     const [noteToDelete, setNoteToDelete] =useState(null);
+
+    const filteredNotes =
+    filter === "all"
+        ? notes
+        : notes.filter(
+              (note) => note.type === filter
+          );
 
     useEffect(() => {
         fetchNotes(userBookId);
@@ -110,18 +119,21 @@ function Notes() {
                                 Back
                             </Button>
 
-                            {/* <Button
-                                onClick={() => {
-                                    setMode("create");
-                                    setSelectedNote(null);
-                                    setIsModalOpen(true);
-                                }}
-                            >
-                                <Plus size={18} />
-                                Add Note
-                            </Button> */}
-                            {isBookNotes && (
+                            {/* {isBookNotes && (
                                 <Button onClick={() => setIsModalOpen(true)}>
+                                    <Plus size={18} />
+                                    Add Note
+                                </Button>
+                            )} */}
+
+                            {isBookNotes && (
+                                <Button
+                                    onClick={() => {
+                                        setMode("create");
+                                        setSelectedNote(null);
+                                        setIsModalOpen(true);
+                                    }}
+                                >
                                     <Plus size={18} />
                                     Add Note
                                 </Button>
@@ -130,13 +142,33 @@ function Notes() {
                     }
                 />
 
+                <NoteFilters
+                    filter={filter}
+                    setFilter={setFilter}
+                />
+
                 {loading ? (
                     <LoadingSpinner message="Loading notes..." />
-                ) : notes.length === 0 ? (
-                    <EmptyNotes />
+                ) :filteredNotes.length === 0? (
+                    <EmptyNotes
+                        title={
+                            filter === "quote"
+                                ? "No Quotes Yet"
+                                : filter === "note"
+                                ? "No Notes Yet"
+                                : "No Notes Yet"
+                        }
+                        description={
+                            filter === "quote"
+                                ? "You haven't saved any quotes yet."
+                                : filter === "note"
+                                ? "You haven't created any notes yet."
+                                : "Start capturing ideas while reading."
+                        }
+                    />
                 ) : (
                     <NotesList 
-                        notes={notes}
+                        notes={filteredNotes}
                         onEdit={handleEdit}
                         onDelete={handleDeleteClick}
                     />

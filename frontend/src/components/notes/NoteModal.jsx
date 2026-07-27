@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import Modal from "../common/Modal";
 import Button from "../common/Button";
+import Modal from "../common/Modal";
 
 import TagInput from "./TagInput";
 
@@ -12,6 +12,7 @@ function NoteModal({
     note,
     onSave,
 }) {
+    const [type, setType] = useState("note");
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [page, setPage] = useState("");
@@ -20,12 +21,14 @@ function NoteModal({
 
     useEffect(() => {
         if (mode === "edit" && note) {
-            setTitle(note.title);
-            setContent(note.content);
+            setType(note.type || "note");
+            setTitle(note.title || "");
+            setContent(note.content || "");
             setPage(note.page || "");
             setChapter(note.chapter || "");
             setTags(note.tags || []);
         } else {
+            setType("note");
             setTitle("");
             setContent("");
             setPage("");
@@ -38,6 +41,7 @@ function NoteModal({
         e.preventDefault();
 
         const payload = {
+            type,
             title: title.trim(),
             content: content.trim(),
             page: page ? Number(page) : undefined,
@@ -52,8 +56,8 @@ function NoteModal({
         <Modal
             title={
                 mode === "create"
-                    ? "Add Note"
-                    : "Edit Note"
+                    ? `Add ${type === "note" ? "Note" : "Quote"}`
+                    : `Edit ${type === "note" ? "Note" : "Quote"}`
             }
             isOpen={isOpen}
             onClose={onClose}
@@ -62,6 +66,52 @@ function NoteModal({
                 onSubmit={handleSubmit}
                 className="space-y-5"
             >
+                {/* Type */}
+
+                <div>
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
+                        Type
+                    </label>
+
+                    {mode === "create" ? (
+                        <div className="inline-flex rounded-lg border bg-gray-100 p-1">
+                            <button
+                                type="button"
+                                onClick={() => setType("note")}
+                                className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                                    type === "note"
+                                        ? "bg-white text-amber-600 shadow"
+                                        : "text-gray-600 hover:text-gray-900"
+                                }`}
+                            >
+                                📝 Note
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => setType("quote")}
+                                className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                                    type === "quote"
+                                        ? "bg-white text-amber-600 shadow"
+                                        : "text-gray-600 hover:text-gray-900"
+                                }`}
+                            >
+                                ❝ Quote
+                            </button>
+                        </div>
+                    ) : (
+                        <span
+                            className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${
+                                type === "quote"
+                                    ? "bg-amber-100 text-amber-700"
+                                    : "bg-blue-100 text-blue-700"
+                            }`}
+                        >
+                            {type === "quote" ? "❝ Quote" : "📝 Note"}
+                        </span>
+                    )}
+                </div>
+
                 <div>
                     <label className="mb-2 block text-sm font-medium">
                         Title
@@ -72,6 +122,11 @@ function NoteModal({
                         onChange={(e) =>
                             setTitle(e.target.value)
                         }
+                        placeholder={
+                            type === "note"
+                                ? "Enter note title"
+                                : "Enter quote title"
+                        }
                         className="w-full rounded-lg border p-3"
                         required
                     />
@@ -79,7 +134,7 @@ function NoteModal({
 
                 <div>
                     <label className="mb-2 block text-sm font-medium">
-                        Content
+                        {type === "note" ? "Content": "Quote"}
                     </label>
 
                     <textarea
@@ -87,6 +142,11 @@ function NoteModal({
                         value={content}
                         onChange={(e) =>
                             setContent(e.target.value)
+                        }
+                        placeholder={
+                            type === "note"
+                                ? "Write your thoughts..."
+                                : "Write the quote..."
                         }
                         className="w-full rounded-lg border p-3"
                         required
@@ -120,6 +180,7 @@ function NoteModal({
                             onChange={(e) =>
                                 setChapter(e.target.value)
                             }
+                            placeholder="Optional"
                             className="w-full rounded-lg border p-3"
                         />
                     </div>
@@ -136,6 +197,8 @@ function NoteModal({
                     />
                 </div>
 
+                {/* Footer */}
+
                 <div className="flex justify-end gap-3">
                     <Button
                         type="button"
@@ -147,8 +210,8 @@ function NoteModal({
 
                     <Button type="submit">
                         {mode === "create"
-                            ? "Save Note"
-                            : "Update Note"}
+                            ? `Save ${type === "note" ? "Note" : "Quote"}`
+                            : `Update ${type === "note" ? "Note" : "Quote"}`}
                     </Button>
                 </div>
             </form>

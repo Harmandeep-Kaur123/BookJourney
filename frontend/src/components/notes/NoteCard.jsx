@@ -1,6 +1,13 @@
+import { Pencil, Trash2} from "lucide-react";
+
+import Button from "../common/Button";
 import Card from "../common/Card";
 
-function NoteCard({ note }) {
+function NoteCard({
+    note,
+    onEdit,
+    onDelete,
+}) {
     return (
         <Card className="space-y-4">
             <div className="flex items-start justify-between gap-4">
@@ -18,6 +25,26 @@ function NoteCard({ note }) {
                             {note.page && `Page ${note.page}`}
                         </p>
                     )}
+                </div>
+
+                <div className="flex gap-2">
+                    <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => onEdit(note)}
+                    >
+                        <Pencil size={16} />
+                        Edit
+                    </Button>
+
+                    <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => onDelete(note)}
+                    >
+                        <Trash2 size={16} />
+                        Delete
+                    </Button>
                 </div>
             </div>
 
@@ -41,9 +68,12 @@ function NoteCard({ note }) {
             <div className="border-t pt-3 text-xs text-gray-400">
                 Created{" "}
                 {new Date(note.createdAt).toLocaleDateString()}
+                {/* Updated{" "}
+                {new Date(note.updatedAt).toLocaleDateString()} */}
             </div>
         </Card>
     );
 }
 
 export default NoteCard;
+

@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft, Plus } from "lucide-react";
+import toast from "react-hot-toast";
 
 import Button from "../components/common/Button";
 import LoadingSpinner from "../components/common/LoadingSpinner";
@@ -8,57 +9,165 @@ import PageContainer from "../components/layout/PageContainer";
 import PageHeader from "../components/layout/PageHeader";
 
 import EmptyNotes from "../components/notes/EmptyNote";
+import NoteModal from "../components/notes/NoteModal";
 import NotesList from "../components/notes/NotesList";
+import DeleteNoteDialog from "../components/notes/DeleteNoteDialog";
 
 import useNotes from "../hooks/useNotes";
 
+import { getErrorMessage } from "../utils/getErrorMessage";
+
 function Notes() {
     const { userBookId } = useParams();
-    console.log("USERBOOKID "+ userBookId );
+    const isBookNotes = Boolean(userBookId);
+
     const navigate = useNavigate();
 
     const {
         notes,
         loading,
         fetchNotes,
+        createNote,
+        updateNote,
+        deleteNote,
     } = useNotes();
+   
+    const [selectedNote, setSelectedNote] = useState(null);
+    const [mode, setMode] = useState("create");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] =useState(false);
+    const [noteToDelete, setNoteToDelete] =useState(null);
 
     useEffect(() => {
-        //  if (!userBookId) return;
         fetchNotes(userBookId);
     }, [fetchNotes, userBookId]);
 
-    return (
-        <PageContainer>
-            <PageHeader
-                title="Notes"
-                description="Capture your important learnings from this book."
-                actions={
-                    <div className="flex gap-3">
-                        <Button
-                            variant="secondary"
-                            onClick={() => navigate(-1)}
-                        >
-                            <ArrowLeft size={18} />
-                            Back
-                        </Button>
+    const handleCreateNote = async (noteData) => {
+        try {
+            await createNote({
+                ...noteData,
+                userBookId,
+            });
 
-                        <Button>
-                            <Plus size={18} />
-                            Add Note
-                        </Button>
-                    </div>
+            setIsModalOpen(false);
+        } catch (error) {
+            toast.error(getErrorMessage(error));
+        }
+    };
+
+    const handleEdit = (note) => {
+        setMode("edit");
+        setSelectedNote(note);
+        setIsModalOpen(true);
+    };
+
+    const handleUpdateNote = async (data) => {
+        try {
+            await updateNote(selectedNote._id, data);
+
+            setIsModalOpen(false);
+            setSelectedNote(null);
+        } catch (error) {
+            toast.error(getErrorMessage(error));
+        }
+    };
+
+    const handleDeleteClick = (note) => {
+        setNoteToDelete(note);
+        setIsDeleteOpen(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            setDeleteLoading(true);
+
+            await deleteNote(noteToDelete._id);
+
+            setIsDeleteOpen(false);
+            setNoteToDelete(null);
+        } catch (error) {
+            toast.error(getErrorMessage(error));
+        } finally {
+            setDeleteLoading(false);
+        }
+    };
+
+    return (
+        <>
+            <PageContainer>
+                <PageHeader
+                    title="Notes"
+                    description="Capture your learnings from this book."
+                    actions={
+                        <div className="flex gap-3">
+                            <Button
+                                variant="secondary"
+                                onClick={() => navigate(-1)}
+                            >
+                                <ArrowLeft size={18} />
+                                Back
+                            </Button>
+
+                            {/* <Button
+                                onClick={() => {
+                                    setMode("create");
+                                    setSelectedNote(null);
+                                    setIsModalOpen(true);
+                                }}
+                            >
+                                <Plus size={18} />
+                                Add Note
+                            </Button> */}
+                            {isBookNotes && (
+                                <Button onClick={() => setIsModalOpen(true)}>
+                                    <Plus size={18} />
+                                    Add Note
+                                </Button>
+                            )}
+                        </div>
+                    }
+                />
+
+                {loading ? (
+                    <LoadingSpinner message="Loading notes..." />
+                ) : notes.length === 0 ? (
+                    <EmptyNotes />
+                ) : (
+                    <NotesList 
+                        notes={notes}
+                        onEdit={handleEdit}
+                        onDelete={handleDeleteClick}
+                    />
+                )}
+            </PageContainer>
+
+            <NoteModal
+                isOpen={isModalOpen}
+                mode={mode}
+                note={selectedNote}
+                onClose={() => {
+                    setSelectedNote(null);
+                    setIsModalOpen(false);
+                }}
+                onSave={
+                    mode === "create"
+                        ? handleCreateNote
+                        : handleUpdateNote
                 }
             />
 
-            {loading ? (
-                <LoadingSpinner message="Loading notes..." />
-            ) : notes.length === 0 ? (
-                <EmptyNotes />
-            ) : (
-                <NotesList notes={notes} />
-            )}
-        </PageContainer>
+            <DeleteNoteDialog
+                isOpen={isDeleteOpen}
+                onClose={() => {
+                    setIsDeleteOpen(false);
+                    setNoteToDelete(null);
+                }}
+                onConfirm={handleDeleteConfirm}
+                loading={deleteLoading}
+            />
+        </>
     );
 }
 

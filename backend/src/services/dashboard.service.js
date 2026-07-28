@@ -4,13 +4,6 @@ import Note from "../models/Note.js";
 
 import { BOOK_STATUS } from "../constants/bookStatus.js";
 
-// getReadingStats()
-// getReadingGoal()
-// getFavoriteGenres()
-// getContinueReading()
-// getRecentNotes()
-// getDashboard()
-
 const getReadingStats = async (userId) => {
     const userBooks = await UserBook.find({
         user: userId,

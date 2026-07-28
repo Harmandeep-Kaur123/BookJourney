@@ -20,7 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWRiZGYyO
 }
 
 # GET http://localhost:5000/api/books/search?q=the alchemis
-# POST http://localhost:5000/aspi/books
+# POST http://localhost:5000/api/books
 # Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
 

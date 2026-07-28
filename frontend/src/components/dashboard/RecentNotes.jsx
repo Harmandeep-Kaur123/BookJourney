@@ -1,10 +1,12 @@
 import { ArrowRight, NotebookPen } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../constants/routes.js";
 import Card from "../common/Card";
 import EmptyState from "../common/EmptyState";
 import Button from "../common/Button";
 
 function RecentNotes({ notes }) {
+    const navigate = useNavigate();
     return (
         <Card title="Recent Notes">
             {notes.length === 0 ? (
@@ -33,6 +35,14 @@ function RecentNotes({ notes }) {
                             <Button
                                 variant="ghost"
                                 size="sm"
+                                onClick={() =>
+                                    navigate(
+                                            ROUTES.BOOK_NOTES.replace(
+                                                ":userBookId",
+                                                note.userBook._id
+                                            )
+                                        )
+                                    }
                             >
                                 View
 

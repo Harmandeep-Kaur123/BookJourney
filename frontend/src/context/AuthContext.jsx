@@ -7,7 +7,11 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    
+    const updateUser = (updatedUser) => {
+        setUser(updatedUser);
+    };
+    
     useEffect(() => {
         async function loadUser() {
             const token = getToken();
@@ -50,12 +54,14 @@ export function AuthProvider({ children }) {
         setUser(null);
     }, []);
 
+
     const value = {
         user,
         loading,
         login,
         register,
         logout,
+        updateUser,
         isAuthenticated: !!user,
     };
 

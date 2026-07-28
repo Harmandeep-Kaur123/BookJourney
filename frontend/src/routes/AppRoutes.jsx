@@ -8,6 +8,7 @@ import NotFound from "../pages/NotFound";
 import Search from "../pages/Search.jsx";
 import Library from "../pages/Library.jsx";
 import Notes from "../pages/Note.jsx";
+import Profile from "../pages/Profile.jsx";
 import { ROUTES } from "../constants/routes.js";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -58,10 +59,10 @@ function AppRoutes() {
                         element={<Notes />}
                     />
 
-                    {/* <Route
-                        path={ROUTES.PROsFILE}
+                    <Route
+                        path={ROUTES.PROFILE}
                         element={<Profile />}
-                    />  */}
+                    /> 
                 </Route>
             </Route>
 

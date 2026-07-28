@@ -26,3 +26,26 @@ export const loginValidation = [
         .withMessage("Password is required")
 
 ];
+
+export const updateProfileValidation = [
+    body("name")
+            .optional()
+            .trim()
+            .notEmpty()
+            .withMessage("Name cannot be empty"),
+
+    body("readingGoal")
+        .optional()
+        .isInt({ min: 1 })
+        .withMessage("Reading goal must be at least 1"),
+];
+
+export const changePasswordValidation = [
+    body("currentPassword")
+        .notEmpty()
+        .withMessage("Current password is required"),
+
+    body("newPassword")
+        .isLength({ min: 8 })
+        .withMessage("New password must be at least 8 characters"),
+];

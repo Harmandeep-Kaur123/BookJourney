@@ -11,11 +11,16 @@
 
 
 //GET http://localhost:5000/api/auth/me
-# GET http://localhost:5000/api/books/search?q=the alchemist
-# Content-Type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
+PUT http://localhost:5000/api/auth/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWRiZGYyOTQ3MmQyY2ZkYWQ1NjJjNSIsImlhdCI6MTc4NTEzOTIxMiwiZXhwIjoxNzg1NzQ0MDEyfQ.XmnCZeou_ZAxEJA12aMCWLFnj1q3kVuiU7tqvxXDzWE
 
-# POST http://localhost:5000/api/books
+{
+    "readingGoal": 15
+}
+
+# GET http://localhost:5000/api/books/search?q=the alchemis
+# POST http://localhost:5000/aspi/books
 # Content-Type: application/json
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNGM4MWJhMWY3MDYwYTJlZjcxZWVhMiIsImlhdCI6MTc4MzU3NTM4MCwiZXhwIjoxNzg0MTgwMTgwfQ.smPBFh89tR2vb1PCU9aGhZHhyhKBqrab3bACUSL5lEw
 
@@ -24,10 +29,10 @@
 # }
 
 # GET http://localhost:5000/api/books/library
-GET http://localhost:5000/api/dashboard
-# # PATCH http://localhost:5000/api/books/library/6a5079b1c2c29a775d6570bf
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWRiZGYyOTQ3MmQyY2ZkYWQ1NjJjNSIsImlhdCI6MTc4NTEzOTIxMiwiZXhwIjoxNzg1NzQ0MDEyfQ.XmnCZeou_ZAxEJA12aMCWLFnj1q3kVuiU7tqvxXDzWE
+# GET http://localhost:5000/api/dashboard
+# # # PATCH http://localhost:5000/api/books/library/6a5079b1c2c29a775d6570bf
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNWRiZGYyOTQ3MmQyY2ZkYWQ1NjJjNSIsImlhdCI6MTc4NTEzOTIxMiwiZXhwIjoxNzg1NzQ0MDEyfQ.XmnCZeou_ZAxEJA12aMCWLFnj1q3kVuiU7tqvxXDzWE
 
 # {
 #     "status": "Completed",

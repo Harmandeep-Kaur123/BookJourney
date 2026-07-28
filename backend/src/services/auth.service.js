@@ -62,3 +62,72 @@ export const loginUser = async (userData) => {
         },
     };
 };
+
+export const updateProfile = async (userId, userData) => {
+    const user = await User.findById(userId);
+
+    if (!user) {
+        throw new AppError(
+            "User not found",
+            HTTP_STATUS.NOT_FOUND
+        );
+    }
+
+    if (userData.name !== undefined) {
+        user.name = userData.name;
+    }
+
+    if (userData.readingGoal !== undefined) {
+        user.readingGoal = userData.readingGoal;
+    }
+
+    await user.save();
+
+    return {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        readingGoal: user.readingGoal,
+    };
+};
+
+export const changePassword = async (
+    userId,
+    passwordData
+) => {
+    const { currentPassword, newPassword } =
+        passwordData;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+        throw new AppError(
+            "User not found",
+            HTTP_STATUS.NOT_FOUND
+        );
+    }
+
+    const isPasswordMatched =
+        await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+    if (!isPasswordMatched) {
+        throw new AppError(
+            "Current password is incorrect",
+            HTTP_STATUS.BAD_REQUEST
+        );
+    }
+
+    user.password = await bcrypt.hash(
+        newPassword,
+        10
+    );
+
+    await user.save();
+
+    return {
+        message: "Password updated successfully",
+    };
+};

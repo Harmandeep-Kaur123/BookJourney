@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
     ChevronDown,
-    CircleUserRound,
     LogOut,
     User,
 } from "lucide-react";
@@ -52,14 +51,13 @@ function UserMenu() {
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="flex items-center gap-2 rounded-lg border px-3 py-2 transition-colors hover:bg-gray-100"
             >
-                <CircleUserRound
-                    size={22}
-                    className="text-gray-600"
-                />
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-amber-100 font-semibold text-amber-700">
+                    {user?.name?.charAt(0).toUpperCase()}
+                </div>
 
-                <span className="text-sm font-medium text-gray-700">
+                {/* <span className="text-sm font-medium text-gray-700">
                     {user?.name}
-                </span>
+                </span> */}
 
                 <ChevronDown
                     size={18}
@@ -71,14 +69,20 @@ function UserMenu() {
 
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-64 overflow-hidden rounded-xl border bg-white shadow-lg">
-                    <div className="border-b p-4">
-                        <p className="font-semibold text-gray-900">
-                            {user?.name}
-                        </p>
+                    <div className="flex items-center gap-3 border-b p-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-100 text-lg font-bold text-amber-700">
+                            {user?.name?.charAt(0).toUpperCase()}
+                        </div>
 
-                        <p className="mt-1 text-sm text-gray-500 break-all">
-                            {user?.email}
-                        </p>
+                        <div className="min-w-0">
+                            <p className="truncate font-semibold text-gray-900">
+                                {user?.name}
+                            </p>
+
+                            <p className="truncate text-sm text-gray-500">
+                                {user?.email}
+                            </p>
+                        </div>
                     </div>
 
                     <div className="py-2">

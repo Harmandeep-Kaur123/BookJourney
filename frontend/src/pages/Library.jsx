@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import toast from "react-hot-toast";
 import { LibraryBig } from "lucide-react";
 
@@ -8,11 +8,14 @@ import EmptyState from "../components/common/EmptyState";
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import UpdateBookModal from "../components/library/UpdateBookModal";
 import LibraryGrid from "../components/library/LibraryGrid";
+import LibraryFilters from "../components/library/LibraryFilters";
+
 import bookService from "../services/book.service";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 function Library() {
     const [books, setBooks] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState("all");
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
@@ -72,6 +75,16 @@ function Library() {
         }
     };
 
+    const filteredBooks = useMemo(() => {
+        if (selectedFilter === "all") {
+            return books;
+        }
+
+        return books.filter(
+            (book) => book.status === selectedFilter
+        );
+    }, [books, selectedFilter]);
+
     return (
         <PageContainer>
             <PageHeader
@@ -88,7 +101,26 @@ function Library() {
                     description="Search for a book and add it to your library."
                 />
             ) : (
-                <LibraryGrid books={books} onUpdate={handleOpenModal}/>
+                <>
+                    <LibraryFilters
+                        books={books}
+                        selectedFilter={selectedFilter}
+                        onFilterChange={setSelectedFilter}
+                    />
+
+                    {filteredBooks.length === 0 ? (
+                        <EmptyState
+                            icon={LibraryBig}
+                            title="No books found"
+                            description="No books match the selected filter."
+                        />
+                    ) : (
+                        <LibraryGrid
+                            books={filteredBooks}
+                            onUpdate={handleOpenModal}
+                        />
+                    )}
+                </>
             )}
 
             <UpdateBookModal

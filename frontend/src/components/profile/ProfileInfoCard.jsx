@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
+import { Mail } from "lucide-react";
 import Button from "../common/Button";
 
 import { getErrorMessage } from "../../utils/getErrorMessage";
@@ -70,12 +70,19 @@ function ProfileInfoCard({
                         Email
                     </label>
 
-                    <input
-                        type="email"
-                        value={profile?.email || ""}
-                        disabled
-                        className="w-full cursor-not-allowed rounded-lg border bg-gray-100 px-4 py-3 text-gray-500"
-                    />
+                    <div className="relative">
+                        <Mail
+                            size={18}
+                            className="absolute top-1/2 left-4 -translate-y-1/2 text-gray-400"
+                        />
+
+                        <input
+                            type="email"
+                            value={profile?.email || ""}
+                            disabled
+                            className="w-full cursor-not-allowed rounded-lg border bg-gray-100 py-3 pr-4 pl-11 text-gray-500"
+                        />
+                    </div>
                 </div>
 
                 <Button

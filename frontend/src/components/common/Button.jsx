@@ -6,6 +6,7 @@ function Button({
     disabled = false,
     onClick,
     className = "",
+    ...props
 }) {
     const baseStyles =
         "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 disabled:cursor-not-allowed disabled:opacity-50";
@@ -36,6 +37,7 @@ function Button({
             disabled={disabled}
             onClick={onClick}
             className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+            {...props}
         >
             {children}
         </button>

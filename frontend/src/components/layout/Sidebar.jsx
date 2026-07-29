@@ -5,7 +5,7 @@ import { navigation } from "../../constants/navigation";
 
 function Sidebar() {
     return (
-    <aside className="sticky top-16 h-[calc(100vh-4rem)] w-64 border-r bg-white p-4">
+    <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 flex-col border-r bg-white lg:flex">
        
         <nav className="flex-1 space-y-2 p-4">
             {navigation.map((item) => {

@@ -13,15 +13,15 @@ Unlike traditional book trackers, BookJourney focuses on helping users retain kn
 Dashboard
 ![alt text](image.png)
 
+My Library 
+![alt text](image-1.png)
 
+Search
+![alt text](image-3.png)
 
-| Search | Notes |
-|--------|-------|
-| Search Screenshot | Notes Screenshot |
+Notes / Quotes
+![alt text](image-2.png)
 
-| Profile |
-|---------|
-| Profile Screenshot |
 
 ---
 

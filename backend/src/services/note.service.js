@@ -1,6 +1,6 @@
 import Note from "../models/Note.js";
 import UserBook from "../models/UserBook.js";
-import AppError from "../utils/AppError.js";
+import AppError from "../utils/appError.js";
 import { HTTP_STATUS } from "../constants/httpStatus.js"
 
 //CREATE NOTE

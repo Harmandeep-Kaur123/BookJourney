@@ -10,11 +10,10 @@ Unlike traditional book trackers, BookJourney focuses on helping users retain kn
 
 ## 📸 Screenshots
 
-> Add screenshots of your application here.
+Dashboard
+![alt text](image.png)
 
-| Dashboard | My Library |
-|-----------|------------|
-| Dashboard Screenshot | Library Screenshot |
+
 
 | Search | Notes |
 |--------|-------|
@@ -297,69 +296,6 @@ timestamps
 
 ---
 
-# 🚀 Installation
-
-## Clone Repository
-
-```bash
-git clone <repository-url>
-cd BookJourney
-```
-
----
-
-## Backend Setup
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
----
-
-## Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-# ⚙️ Environment Variables
-
-## Backend
-
-Create a `.env` file:
-
-```env
-PORT=5000
-
-MONGODB_URI=your_mongodb_connection
-
-JWT_SECRET=your_secret
-
-GOOGLE_BOOKS_API_KEY=your_api_key
-
-GOOGLE_BOOKS_API_URL=https://www.googleapis.com/books/v1
-
-FRONTEND_URL=http://localhost:5173
-```
-
----
-
-## Frontend
-
-Create a `.env` file:
-
-```env
-VITE_API_BASE_URL=http://localhost:5000/api
-```
-
----
-
 # 🔒 Security
 
 - JWT Authentication
@@ -427,11 +363,3 @@ Its goal is simple:
 
 **Harmandeep Kaur**
 
-- GitHub: *(Add your GitHub profile)*
-- LinkedIn: *(Add your LinkedIn profile)*
-
----
-
-# 📄 License
-
-This project is licensed under the MIT License.

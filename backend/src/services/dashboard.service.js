@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import UserBook from "../models/UserBook.js";
 import Note from "../models/Note.js";
+import mongoose from "mongoose";
 
 import { BOOK_STATUS } from "../constants/bookStatus.js";
 
@@ -64,10 +65,12 @@ const getReadingGoal = async (userId) => {
 };
 
 const getFavoriteGenres = async (userId) => {
-
-    const genres = await UserBook.aggregate([
+    const books = await UserBook.aggregate([
         {
-            $match: {user: userId,},
+            $match: {
+                user: new mongoose.Types.ObjectId(userId),
+                status: "Completed", // optional but recommended
+            },
         },
         {
             $lookup: {
@@ -81,31 +84,36 @@ const getFavoriteGenres = async (userId) => {
             $unwind: "$book",
         },
         {
-            $unwind: "$book.categories",
-        },
-        {
-            $group: {
-                _id: "$book.categories",
-                count: {
-                    $sum: 1,
-                },
+            $project: {
+                categories: "$book.categories",
             },
-        },
-        {
-            $sort: {
-                count: -1,
-            },
-        },
-        {
-            $limit: 5,
         },
     ]);
 
-    return genres.map((genre) => ({
-        genre: genre._id,
-        count: genre.count,
-    }));
+    const genreCounts = {};
+
+    books.forEach((book) => {
+        // Normalize each category and remove duplicates within this book
+        const uniqueGenres = new Set(
+            (book.categories || []).map((category) =>
+                category.split("/")[0].trim()
+            )
+        );
+
+        uniqueGenres.forEach((genre) => {
+            genreCounts[genre] = (genreCounts[genre] || 0) + 1;
+        });
+    });
+
+    return Object.entries(genreCounts)
+        .map(([genre, count]) => ({
+            genre,
+            count,
+        }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 4);
 };
+
 
 const getContinueReading = async (userId) => {
 

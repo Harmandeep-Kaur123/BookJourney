@@ -20,19 +20,22 @@ function LibraryBookCard({
     const bookDetails = book.book;
     const navigate = useNavigate();
     return (
-        <Card className="flex gap-6">
-            <img
-                src={
-                    bookDetails.coverImage ||
-                    PLACEHOLDER_IMAGE
-                }
-                alt={bookDetails.title}
-                className="h-48 w-32 rounded-lg border object-cover"
-            />
+        <Card className="flex flex-col gap-5 md:flex-row">
+    
+            <div className="flex justify-center md:block">
+                <img
+                    src={
+                        bookDetails.coverImage ||
+                        PLACEHOLDER_IMAGE
+                    }
+                    alt={`${bookDetails.title} cover`}
+                    className="h-48 w-32 rounded-lg border object-cover"
+                />
+            </div>
 
             <div className="flex flex-1 flex-col justify-between">
                 <div>
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div>
                             <h3 className="text-xl font-semibold text-gray-900">
                                 {bookDetails.title}
@@ -60,17 +63,17 @@ function LibraryBookCard({
                     </div>
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <Button
                         variant="secondary"
-                        className="w-40"
+                        className="w-full sm:w-40"
                         onClick={() => navigate(ROUTES.BOOK_NOTES.replace(":userBookId", book._id))}
                     >
                         View Notes
                     </Button>
 
                     <Button
-                        className="w-40"
+                        className="w-full sm:w-40"
                         onClick={() => onUpdate(book)}
                     >
                         Update Book

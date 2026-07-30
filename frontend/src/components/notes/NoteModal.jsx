@@ -74,11 +74,11 @@ function NoteModal({
                     </label>
 
                     {mode === "create" ? (
-                        <div className="inline-flex rounded-lg border bg-gray-100 p-1">
+                        <div className="flex w-full rounded-lg border bg-gray-100 p-1">
                             <button
                                 type="button"
                                 onClick={() => setType("note")}
-                                className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                                className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition ${
                                     type === "note"
                                         ? "bg-white text-amber-600 shadow"
                                         : "text-gray-600 hover:text-gray-900"
@@ -90,7 +90,7 @@ function NoteModal({
                             <button
                                 type="button"
                                 onClick={() => setType("quote")}
-                                className={`rounded-md px-4 py-2 text-sm font-medium transition ${
+                                className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition ${
                                     type === "quote"
                                         ? "bg-white text-amber-600 shadow"
                                         : "text-gray-600 hover:text-gray-900"
@@ -138,7 +138,7 @@ function NoteModal({
                     </label>
 
                     <textarea
-                        rows={6}
+                        rows={5}
                         value={content}
                         onChange={(e) =>
                             setContent(e.target.value)
@@ -199,7 +199,7 @@ function NoteModal({
 
                 {/* Footer */}
 
-                <div className="flex justify-end gap-3">
+                <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                     <Button
                         type="button"
                         variant="secondary"

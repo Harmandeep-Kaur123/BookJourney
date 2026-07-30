@@ -13,25 +13,32 @@ function FavoriteGenres({ genres }) {
                     description="Complete a few books to discover your favorite genres."
                 />
             ) : (
-                <div className="grid grid-cols-2 gap-4">
-                    {genres.map((genre) => (
+                <div className="grid gap-4 sm:grid-cols-2">
+                    {genres.map((item) => (
                         <div
-                            key={genre}
-                            className="flex items-center gap-3 rounded-xl border border-amber-100 bg-amber-50 p-4 transition hover:border-amber-300 hover:bg-amber-100"
+                            key={item.genre}
+                            className="flex items-center justify-between rounded-xl border border-amber-100 bg-amber-50 p-4 transition hover:border-amber-300 hover:bg-amber-100"
                         >
-                            <div className="rounded-lg bg-white p-2 text-amber-600">
-                                <BookMarked size={18} />
+                            <div className="flex items-center gap-3">
+                                <div className="rounded-lg bg-white p-2 text-amber-600">
+                                    <BookMarked size={18} />
+                                </div>
+
+                                <div>
+                                    <p className="text-xs text-gray-500">
+                                        Genre
+                                    </p>
+
+                                    <h3 className="font-medium text-gray-900">
+                                        {item.genre}
+                                    </h3>
+                                </div>
                             </div>
 
-                            <div>
-                                <p className="text-xs text-gray-500">
-                                    Genre
-                                </p>
-
-                                <h3 className="font-medium text-gray-900">
-                                    {genre}
-                                </h3>
-                            </div>
+                            <Badge>
+                                {item.count}{" "}
+                                {item.count === 1 ? "book" : "books"}
+                            </Badge>
                         </div>
                     ))}
                 </div>

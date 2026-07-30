@@ -40,24 +40,25 @@ function Modal({
             onClick={onClose}
         >
             <div
-                className="w-full max-w-lg rounded-xl bg-white shadow-xl"
+                className="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-xl bg-white shadow-xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex items-center justify-between border-b p-5">
-                    <h2 className="text-xl font-semibold">
+                    <h2 className="text-lg font-semibold sm:text-xl">
                         {title}
                     </h2>
 
                     <button
                         type="button"
+                        aria-label="Close modal"
                         onClick={onClose}
-                        className="rounded-md p-2 hover:bg-gray-100"
+                        className="rounded-md p-2 transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-amber-300"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
-                <div className="p-6">
+                <div className="flex-1 overflow-y-auto p-6">
                     {children}
                 </div>
             </div>

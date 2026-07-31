@@ -8,6 +8,11 @@ Unlike traditional book trackers, BookJourney focuses on helping users retain kn
 
 ---
 
+🌐 **Live Demo:** https://bookjourney123-two.vercel.app
+
+🔗 **Backend API:** https://bookjourney-4k4z.onrender.com/api
+
+---
 ## 📸 Screenshots
 
 Dashboard
